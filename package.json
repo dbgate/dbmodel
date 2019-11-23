@@ -1,6 +1,6 @@
 {
   "name": "dbmodel",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "description": "Deploy, load or build script from model of SQL database",
   "main": "lib/index.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "README.md",
     "bin",
     "lib"
-  ],  
+  ],
   "dependencies": {
     "commander": "^4.0.1",
     "fs-readdir-recursive": "^1.1.0",
