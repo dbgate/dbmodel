@@ -1,0 +1,7 @@
+{
+    "name": "dbmodel-javascript-example",
+    "scripts": {
+        "load": "node load.js",
+        "deploy": "node deploy.js"
+    }
+}

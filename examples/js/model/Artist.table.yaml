@@ -1,0 +1,11 @@
+name: Artist
+columns:
+  - name: ArtistId
+    type: int
+    autoIncrement: true
+    notNull: true
+  - name: Name
+    type: nvarchar
+    length: 120
+primaryKey:
+  - ArtistId

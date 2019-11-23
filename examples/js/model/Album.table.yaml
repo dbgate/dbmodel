@@ -1,0 +1,22 @@
+name: Album
+columns:
+  - name: AlbumId
+    type: int
+    autoIncrement: true
+    notNull: true
+  - name: Title
+    type: nvarchar
+    length: 160
+    notNull: true
+  - name: ArtistId
+    type: int
+    notNull: true
+    references: Artist
+primaryKey:
+  - AlbumId
+indexes:
+  - name: UQ_AlbumTitleArtistId
+    unique: true
+    columns:
+      - Title
+      - ArtistId

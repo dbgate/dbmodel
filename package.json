@@ -1,0 +1,47 @@
+{
+  "name": "dbmodel",
+  "version": "0.0.0",
+  "description": "Deploy, load or build script from model of SQL database",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbshell/dbmodel.git"
+  },
+  "bin": {
+    "dbmodel": "./bin/dbmodel.js"
+  },
+  "keywords": [
+    "sql",
+    "model",
+    "deploy",
+    "mssql"
+  ],
+  "author": "Jan Prochazka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dbshell/dbmodel/issues"
+  },
+  "homepage": "https://github.com/dbshell/dbmodel#readme",
+  "devDependencies": {
+    "eslint": "^6.7.0"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "bin",
+    "lib"
+  ],  
+  "dependencies": {
+    "commander": "^4.0.1",
+    "fs-readdir-recursive": "^1.1.0",
+    "js-yaml": "^3.13.1",
+    "json-normalize": "^1.1.2",
+    "mssql": "^6.0.1",
+    "source-map-support": "^0.5.16",
+    "toposort": "^2.0.2"
+  }
+}
