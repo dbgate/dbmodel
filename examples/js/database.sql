@@ -80,28 +80,32 @@ ALTER TABLE [Album] ADD CONSTRAINT [FK_Album_ArtistId] FOREIGN KEY ([ArtistId]) 
 END
 GO
 IF (NOT EXISTS(
-        SELECT *
-        FROM sys.indexes i
-        WHERE i.name=UQ_AlbumTitleArtistId AND i.is_primary_key=0
-        and i.is_hypothetical=0 and indexproperty(i.object_id, i.name, 'IsStatistics') = 0
-        and objectproperty(i.object_id, 'IsUserTable') = 1
-        and i.index_id between 1 and 254
-        ))
+      SELECT *
+      FROM sys.indexes i
+      inner join sys.objects o ON o.object_id = i.object_id
+      WHERE i.name='UQ_AlbumTitleArtistId' and o.name='Album'
+      and i.is_primary_key=0
+      and i.is_hypothetical=0 and indexproperty(i.object_id, i.name, 'IsStatistics') = 0
+      and objectproperty(i.object_id, 'IsUserTable') = 1
+      and i.index_id between 1 and 254
+      ))
 BEGIN
 PRINT 'Creating index UQ_AlbumTitleArtistId on Album'
-CREATE  INDEX [undefined] ON [undefined] ([undefined],[undefined]) 
+CREATE UNIQUE INDEX [UQ_AlbumTitleArtistId] ON [Album] ([Title],[ArtistId]) 
 END
 GO
 IF (NOT EXISTS(
-        SELECT *
-        FROM sys.indexes i
-        WHERE i.name=IX_FK_Album_ArtistId AND i.is_primary_key=0
-        and i.is_hypothetical=0 and indexproperty(i.object_id, i.name, 'IsStatistics') = 0
-        and objectproperty(i.object_id, 'IsUserTable') = 1
-        and i.index_id between 1 and 254
-        ))
+      SELECT *
+      FROM sys.indexes i
+      inner join sys.objects o ON o.object_id = i.object_id
+      WHERE i.name='IX_FK_Album_ArtistId' and o.name='Album'
+      and i.is_primary_key=0
+      and i.is_hypothetical=0 and indexproperty(i.object_id, i.name, 'IsStatistics') = 0
+      and objectproperty(i.object_id, 'IsUserTable') = 1
+      and i.index_id between 1 and 254
+      ))
 BEGIN
 PRINT 'Creating index IX_FK_Album_ArtistId on Album'
-CREATE  INDEX [undefined] ON [undefined] ([undefined]) 
+CREATE  INDEX [IX_FK_Album_ArtistId] ON [Album] ([ArtistId]) 
 END
 GO
