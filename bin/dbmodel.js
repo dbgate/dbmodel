@@ -62,4 +62,20 @@ program
     );
   });
 
+program
+  .command('build <projectDir> <outputFile>')
+  .description('Builds single SQL script from project')
+  .action((projectDir, outputFile) => {
+    const { client } = program;
+    const hooks = [];
+    dbmodel.runAndExit(
+      dbmodel.build({
+        client,
+        hooks,
+        projectDir,
+        outputFile,
+      })
+    );
+  });
+
 program.parse(process.argv);

@@ -17,21 +17,48 @@ Currently only supported client is **mssql** .
 
     npm install --global dbmodel
 
-## Load structure from database 
-
-    dbmodel load -s localhost -u USERNAME -p PASSWORD -d DATABASE -c mssql OUTPUT_FOLDER
-
-## Deploy model to database 
-
-    dbmodel deploy -s localhost -u USERNAME -p PASSWORD -d DATABASE -c mssql PROJECT_FOLDER
-
 ## Installation - as regular package
 
     npm install --save dbmodel
 
-## Deploy model to database 
+## Available commands
+* **load** - loads structure of database, saves it to local directory (called *project*). Also can download data of enlisted tables (use --load-data-condition options)
+* **deploy** - deploys structure from local directory (*project*) to database. *Deploy does not perform any actions leading to data loss, these changes must be made manually.*
+  * creates not existing tables
+  * creates not existing columns of existing tables
+  * checks column NULL/NOT NULL flag, alters colums
+  * checks tables, which are in database, but not in project, list of these tables are reported
+  * checks columns, which are in database, but not in project, list of these columns are reported
+  * checks indexes and its definitions, indexes are created or recreated, if neccessary (*but not deleted*)
+  * checks and creates foreign keys
+  * checks, creates new or changes existing views, stored procedures and functions
+  * updates and creates static data (included in table yaml files)
+* **build** - builds script from project folder. This operation is complete offline, no database connection is needed. Built script makes subset of deploy command. It can be executed on empty database, but also it can convert existing database to current structure (but only using operations below).
+  * creates not existing tables
+  * creates not existing columns of existing tables
+  * creates not existing indexes (checked only by name)
+  * creates not existing foreign keys
+  * creates new or changes existing views, stored procedures and functions
+  * updates and creates static data (included in table yaml files)
+
+## Command line interface
+
+```sh
+# load from existing database
+dbmodel load -s localhost -u USERNAME -p PASSWORD -d DATABASE -c mssql OUTPUT_FOLDER
+
+# deploy project to database
+dbmodel deploy -s localhost -u USERNAME -p PASSWORD -d DATABASE -c mssql PROJECT_FOLDER
+
+# build SQL script from project
+dbmodel build -c mssql PROJECT_FOLDER OUTPUT_FILE.sql
+```
+
+## JavaScript interface
 
 ```javascript
+const dbmodel = require('dbmodel');
+
 await dbmodel.deploy({
   client: 'mssql',
   connection: {
@@ -44,6 +71,14 @@ await dbmodel.deploy({
   projectDir: 'model',
 })
 ```
+
+list of dbmodel exported functions:
+* build - builds SQL script
+* deploy - deploys model to database 
+* dump - dumps loaded model into directory
+* load - loads model from database
+* read - reads model from directory
+* connect - creates database connection defined in options
 
 ## Table yaml file documentation
 
@@ -60,7 +95,6 @@ columns:
     notNull: true
   - name: ArtistId
     type: int
-    notNull: true
     references: Artist # name of table. Is used for creating foreign key
   - name: isDeleted
     type: bit
@@ -75,4 +109,7 @@ indexes:
       - Title
       - ArtistId
     filter: isDeleted=0 # if defined, filtered index (with WHERE condition) is created
+data: # static data (only for list tables)
+  - AlbumId: -1 # values for all columns, which should be filled
+    Title: Predefined static album
 ```
