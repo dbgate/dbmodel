@@ -109,6 +109,7 @@ indexes:
       - Title
       - ArtistId
     filter: isDeleted=0 # if defined, filtered index (with WHERE condition) is created
+    continueOnError: true # if true and there was error in creating this index, continue (suitable for lately added unique indexes)
 data: # static data (only for list tables)
   - AlbumId: -1 # values for all columns, which should be filled
     Title: Predefined static album
