@@ -1,6 +1,6 @@
 {
   "name": "dbmodel",
-  "version": "0.0.3",
+  "version": "0.1.1",
   "description": "Deploy, load or build script from model of SQL database",
   "main": "lib/index.js",
   "scripts": {
