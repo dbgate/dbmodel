@@ -2,6 +2,7 @@
     "name": "dbmodel-javascript-example",
     "scripts": {
         "load": "node load.js",
-        "deploy": "node deploy.js"
+        "deploy": "node deploy.js",
+        "build": "node build.js"
     }
 }

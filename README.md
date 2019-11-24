@@ -2,7 +2,7 @@
 Deploy, load or build script from model of SQL database. Can be used as command-line tool or as javascript functions
 
 Model is stored as a collection of files:
-* tables - stored as YAML files [(example)](https://github.com/dbshell/dbmodel/blob/master/examples/js/model/Album.table.yaml)
+* tables - stored as YAML files
   * columns
   * indexes
   * primary keys
@@ -40,7 +40,7 @@ await dbmodel.deploy({
     password: process.env.DB_PASSWORD,
     database: 'Chinook_Model',
   },
-  hooks: [dbmodel.hooks.autoIndexForeignKeys],
+  hooks: [dbmodel.hooks.autoIndexForeignKeys], // this hook adds indexes to all foreign keys
   projectDir: 'model',
 })
 ```
